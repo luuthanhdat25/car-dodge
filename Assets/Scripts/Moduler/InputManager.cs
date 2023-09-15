@@ -23,7 +23,6 @@ namespace Moduler
 
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
                 horizontalInputValue = 1;
-            Debug.Log(horizontalInputValue);
         }
 
         public float GetHorizontalInputValue() => horizontalInputValue;

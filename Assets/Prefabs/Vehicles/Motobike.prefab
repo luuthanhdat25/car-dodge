@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 3062819213581781224}
   - component: {fileID: 3062819213581781225}
   - component: {fileID: -3901713999554071201}
+  - component: {fileID: -6036123854894515346}
   m_Layer: 0
   m_Name: Motobike
   m_TagString: Untagged
@@ -118,6 +119,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 675e7f89a91044439986fe049c8e9cd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6036123854894515346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3062819213581781226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ea65c7327f34f50b17dc5457ddd9ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yDistance: -10.75
 --- !u!1 &4752706779486566917
 GameObject:
   m_ObjectHideFlags: 0
