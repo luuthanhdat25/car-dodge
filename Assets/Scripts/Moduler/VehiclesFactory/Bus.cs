@@ -8,10 +8,5 @@ namespace Moduler.VehiclesFactory
         {
             
         }
-
-        public Transform GetTransform()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

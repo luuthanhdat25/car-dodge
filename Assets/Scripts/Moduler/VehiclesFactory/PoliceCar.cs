@@ -6,7 +6,6 @@ namespace Moduler.VehiclesFactory
     {
         public void Move(float speed)
         {
-            
         }
     }
 }

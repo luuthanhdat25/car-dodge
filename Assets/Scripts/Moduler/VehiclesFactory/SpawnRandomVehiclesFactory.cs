@@ -8,6 +8,7 @@ namespace Moduler.VehiclesFactory
     {
         [SerializeField] private List<Transform> vehicleTransformList;
         [SerializeField] private Transform spawnPointTransform;
+        [SerializeField] private float timeRepeat;
 
         protected override void Awake()
         {
@@ -20,7 +21,7 @@ namespace Moduler.VehiclesFactory
             }
         }
 
-        private void Start() => InvokeRepeating("Spawn", 0f, 1f);
+        private void Start() => InvokeRepeating("Spawn", 0f, timeRepeat);
 
         public override void Spawn()
         {

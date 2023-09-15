@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class Moving : MonoBehaviour
 {
-    private float velocity = 2f;
-    private Rigidbody2D _rigidbody2D;
+    private float velocity = 1f;
+    private Rigidbody2D rigidbody2D;
 
     private void Start()
     {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        _rigidbody2D.velocity = velocity * Vector2.down;
+        rigidbody2D = GetComponent<Rigidbody2D>();
+        rigidbody2D.velocity = velocity * Vector2.down;
     }
 
     private void FixedUpdate()
