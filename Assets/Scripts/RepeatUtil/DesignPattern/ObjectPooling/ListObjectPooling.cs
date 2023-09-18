@@ -8,7 +8,6 @@ namespace RepeatUtil.DesignPattern.ObjectPooling
         [SerializeField] protected Transform prefabsManagerTransform;
         [SerializeField] protected Transform poolTransform;
         [SerializeField] protected List<Transform> prefabList;
-        //[SerializeField] protected List<Transform> poolObjList;
 
         protected override void LoadComponents()
         {
@@ -78,9 +77,7 @@ namespace RepeatUtil.DesignPattern.ObjectPooling
             foreach (Transform objectFromPool in poolTransform)
             {
                 if (!objectFromPool.gameObject.activeSelf && prefab.name == objectFromPool.name)
-                {
                     return objectFromPool;
-                }
             }
 
             Transform newPrefab = Instantiate(prefab);

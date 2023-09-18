@@ -19,7 +19,7 @@ namespace Moduler.Player
 
         private Vector3 GetNewPosition(float horizontalInput)
         {
-            float newXPosition = Mathf.Clamp(transform.parent.position.x + distanceMove * horizontalInput, 
+            float newXPosition = Mathf.Clamp(transform.parent.position.x + (distanceMove) * horizontalInput, 
                                                 leftLimitMove, 
                                                 rightLimitMove);
             

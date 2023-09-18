@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5558714e380cb924c845bd7384ad7e9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedMove: 8
 --- !u!114 &-3691162199899512768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d97ba16593748b9bc5b54414161ad82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPercent: 1
 --- !u!114 &8520146043382748207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ea65c7327f34f50b17dc5457ddd9ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yDistance: -10.75
+  yDistance: -8
 --- !u!1 &5330441587873570080
 GameObject:
   m_ObjectHideFlags: 0
