@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Manager;
 using Moduler.VehiclesFactory;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -36,13 +37,21 @@ namespace Moduler
             if (timer <= 0)
             {
                 timer = timeRepeat;
-                Transform newVehicle = factory.Spawn();
-                int indexPoint = GetIndexSpawnPoint();
-                newVehicle.GetComponent<DespawnByDistanse>().SetIndexSpawnPoint(indexPoint);
-                newVehicle.transform.position = spawnPointList[indexPoint].position;
-                spawnPointArrayCount[indexPoint]++;
-                //Debug.Log(spawnPointArrayCount[0] + ", " + spawnPointArrayCount[1] + ", " + spawnPointArrayCount[2] + ", " + spawnPointArrayCount[3]);
+                Spawn();
             }
+        }
+
+        private void Spawn()
+        {
+            Transform newVehicle = factory.Spawn();
+            int indexPoint = GetIndexSpawnPoint();
+            
+            //Create despawn abstract(DespawnByDistanse and DespawnByDistanse Dead) and get abstractVehicle
+            newVehicle.GetComponent<DespawnByDistanse>().SetIndexSpawnPoint(indexPoint);
+            newVehicle.GetComponent<IVehicleProduct>().SetSpeed(GameManager.Instance.GetVehicleSpeed());
+            
+            newVehicle.transform.position = spawnPointList[indexPoint].position;
+            spawnPointArrayCount[indexPoint]++;
         }
 
         //Get the index has minimum vehicle

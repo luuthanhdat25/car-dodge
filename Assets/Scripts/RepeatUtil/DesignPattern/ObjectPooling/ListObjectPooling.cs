@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RepeatUtil.DesignPattern.ObjectPooling
 {
-    public abstract class ListObjectPooling<I> : RepeatMonoBehaviour
+    public abstract class ListObjectPooling<T> : RepeatMonoBehaviour
     {
         [SerializeField] protected Transform prefabsManagerTransform;
         [SerializeField] protected Transform poolTransform;
@@ -48,7 +48,7 @@ namespace RepeatUtil.DesignPattern.ObjectPooling
             this.poolTransform = transform.Find("Pool");
         }
 
-        public virtual Transform GetTransform<T>(T instance) where T : I
+        public virtual Transform GetTransform<I>(I instance) where I : T
         {
             Transform prefab = this.GetPrefabByInstanceFromPrefabList(instance);
             if (prefab == null)
@@ -63,7 +63,7 @@ namespace RepeatUtil.DesignPattern.ObjectPooling
             return newPrefab;
         }
 
-        public virtual Transform GetPrefabByInstanceFromPrefabList<T>(T instance) where T : I
+        public virtual Transform GetPrefabByInstanceFromPrefabList<I>(I instance) where I : T
         {
             foreach (Transform prefab in this.prefabList)
                 if (prefab.GetComponent<I>().Equals(instance))

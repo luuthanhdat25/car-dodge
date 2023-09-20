@@ -8,17 +8,17 @@ namespace Moduler.VehiclesFactory
     {
         public override Transform Spawn()
         {
-            IVehicle newVehicle = GetVehicle();
-            if(newVehicle == null) Debug.LogError("newVehicle dose not exist");
-            Transform trans = VehicleObjectPooling.Instance.GetTransform(newVehicle);
+            IVehicleProduct newVehicleProduct = GetVehicle();
+            if(newVehicleProduct == null) Debug.LogError("newVehicle dose not exist");
+            Transform trans = VehicleObjectPooling.Instance.GetTransform(newVehicleProduct);
             return trans;
         }
 
-        protected override IVehicle GetVehicle()
+        protected override IVehicleProduct GetVehicle()
         {
             List<Transform> vehicleTransformList = VehicleObjectPooling.Instance.GetPrefabList();
-            IVehicle newVehicle = vehicleTransformList[Random.Range(0, vehicleTransformList.Count)].GetComponent<IVehicle>();
-            return newVehicle;
+            IVehicleProduct newVehicleProduct = vehicleTransformList[Random.Range(0, vehicleTransformList.Count)].GetComponent<IVehicleProduct>();
+            return newVehicleProduct;
         }
     }
 }

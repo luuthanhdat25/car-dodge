@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Moduler
 {
-    public class VehicleObjectPooling : ListObjectPooling<IVehicle>
+    public class VehicleObjectPooling : ListObjectPooling<IVehicleProduct>
     {
         public static VehicleObjectPooling Instance { get; private set; }
 

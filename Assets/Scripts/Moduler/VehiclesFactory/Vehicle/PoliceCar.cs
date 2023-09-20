@@ -1,11 +1,10 @@
+using Moduler.VehiclesFactory.Vehicle;
 using UnityEngine;
 
 namespace Moduler.VehiclesFactory
 {
-    public class PoliceCar : MonoBehaviour,IVehicle
+    public class PoliceCar : AbstractVehicle,IVehicleProduct
     {
-        public void Move(float speed)
-        {
-        }
+        public void SetSpeed(float speed) => this.vehicleMovement.SetSpeedMove(speed);
     }
 }

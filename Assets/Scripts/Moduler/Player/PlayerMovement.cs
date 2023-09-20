@@ -1,31 +1,74 @@
+using Manager;
 using UnityEngine;
 
 namespace Moduler.Player
 {
-    public class PlayerMovement : MonoBehaviour
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class PlayerMovement : RepeatMonoBehaviour
     {
-        private float distanceMove = 1.43f;
-        private float leftLimitMove = -2.145f;
-        private float rightLimitMove = 2.145f;
+        [SerializeField] private float moveSpeed = 6f;
+        [SerializeField] private new Rigidbody2D rigidbody2D;
+        
+        private const float DISTANCE_MOVE = 1.43f;
+        private const float X_COORDINATE_MOVE_MIN = -2.145f;
+        private const float X_COORDINATE_MOVE_MAX = 2.145f;
+        
+        private bool isMoving = false;
+        private Vector3 targetPosition;
+        
+        protected override void LoadComponents()
+        {
+            base.LoadComponents();
+            if (this.rigidbody2D != null) return;
+            this.rigidbody2D = GetComponent<Rigidbody2D>();
+        }
 
-        private void LateUpdate() => MoveWithTransform();
+        private void Start() => this.rigidbody2D.gravityScale = 0;
 
-        private void MoveWithTransform()
+        private void LateUpdate() => Move();
+
+        private void Move()
         {
             float horizontalInput = InputManager.Instance.GetHorizontalInputValue();
-            Vector3 newPosition = GetNewPosition(horizontalInput);
-            transform.parent.position = newPosition;
+
+            if (!isMoving && horizontalInput != 0)
+            {
+                targetPosition = GetNewPosition(horizontalInput);
+                isMoving = true;
+            }
+
+            if (isMoving) MoveTowardsTargetPosition();
         }
 
         private Vector3 GetNewPosition(float horizontalInput)
         {
-            float newXPosition = Mathf.Clamp(transform.parent.position.x + (distanceMove) * horizontalInput, 
-                                                leftLimitMove, 
-                                                rightLimitMove);
+            Vector3 currentPosition = transform.position;
+            float newXPosition = Mathf.Clamp(currentPosition.x + (DISTANCE_MOVE) * horizontalInput, 
+                X_COORDINATE_MOVE_MIN, 
+                X_COORDINATE_MOVE_MAX);
             
-            Vector3 newPosition = transform.parent.position;
+            Vector3 newPosition = currentPosition;
             newPosition.x = newXPosition;
             return newPosition;
         }
+        
+        private void MoveTowardsTargetPosition()
+        {
+            Vector3 currentPosition = transform.position;
+            Vector3 moveDirection = (targetPosition - currentPosition).normalized;
+            Vector3 velocity = moveDirection * moveSpeed;
+            rigidbody2D.velocity = velocity;
+
+            if (Vector3.Distance(currentPosition, targetPosition) <= 0.1f)
+            {
+                transform.position = targetPosition;
+                isMoving = false;
+                rigidbody2D.velocity = Vector3.zero;
+            }
+        }
+
+        public float GetMoveSpeed() => this.moveSpeed;
+        
+        public void SetMoveSpeed(float newMoveSpeed) => this.moveSpeed = newMoveSpeed;
     }
 }

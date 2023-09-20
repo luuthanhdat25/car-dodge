@@ -9,24 +9,24 @@ namespace Moduler.VehiclesFactory
 
         public override Transform Spawn()
         {
-            IVehicle newVehicle = GetVehicle();
-            if(newVehicle == null) Debug.LogError("newVehicle dose not exist");
-            Transform trans = VehicleObjectPooling.Instance.GetTransform(newVehicle);
+            IVehicleProduct newVehicleProduct = GetVehicle();
+            if(newVehicleProduct == null) Debug.LogError("newVehicle dose not exist");
+            Transform trans = VehicleObjectPooling.Instance.GetTransform(newVehicleProduct);
             return trans;
         }
 
-        protected override IVehicle GetVehicle()
+        protected override IVehicleProduct GetVehicle()
         {
-            IVehicle newVehicle = null;
+            IVehicleProduct newVehicleProduct = null;
             List<Transform> vehicleTransformList = VehicleObjectPooling.Instance.GetPrefabList();
             if (index < vehicleTransformList.Count) {
-                newVehicle = vehicleTransformList[index].GetComponent<IVehicle>();
+                newVehicleProduct = vehicleTransformList[index].GetComponent<IVehicleProduct>();
             }else {
-                newVehicle = vehicleTransformList[0].GetComponent<IVehicle>();
+                newVehicleProduct = vehicleTransformList[0].GetComponent<IVehicleProduct>();
                 index = 0;
             }
             index++;
-            return newVehicle;
+            return newVehicleProduct;
         }
     }
 }

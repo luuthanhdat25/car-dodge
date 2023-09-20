@@ -1,13 +1,14 @@
-using System;
 using UnityEngine;
 
-public class VehicleMoving : MonoBehaviour
+public class VehicleMovement : MonoBehaviour
 {
-    [SerializeField] private float speedMove = 3f;
+    [SerializeField] private float speedMove;
 
     private void Update()
     {
         Vector3 newPosition = Vector3.down * speedMove * Time.deltaTime;
         this.transform.Translate(newPosition);
     }
+    
+    public void SetSpeedMove(float newSpeed) => this.speedMove = newSpeed;
 }
