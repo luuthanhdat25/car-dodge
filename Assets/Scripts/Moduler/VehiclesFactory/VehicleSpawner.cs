@@ -1,47 +1,35 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Manager;
 using Moduler.VehiclesFactory;
+using RepeatUtil.DesignPattern.SingletonPattern;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Moduler
 {
-    public class VehicleSpawner : MonoBehaviour
+    public class VehicleSpawner : Singleton<VehicleSpawner>
     {
-        public static VehicleSpawner Instance { get; private set; }
-        
         [SerializeField] private List<Transform> spawnPointList;
         [SerializeField] private AbstractSpawnVehiclesFactory factory;
-        [SerializeField] private float timeRepeat = 1f;
         
         private int[] spawnPointArrayCount = new int[4];
         private float timer = 0;
         private int previusIndex;
 
-        private void Awake()
-        {
-            if(Instance != null) Debug.LogError("SpawnManager is already initialized");
-            Instance = this;
-        }
-
-        private void Start()
-        {
-            timer = timeRepeat;
-        }
+        private void Start() => timer = GameManager.Instance.GetSpawnSpeed();
 
         private void FixedUpdate()
         {
+            if (!GameManager.Instance.IsGamePlaying()) return;
             timer -= Time.fixedDeltaTime;
             if (timer <= 0)
             {
-                timer = timeRepeat;
+                timer = GameManager.Instance.GetSpawnSpeed();
                 Spawn();
             }
         }
 
-        private void Spawn()
+        public void Spawn()
         {
             Transform newVehicle = factory.Spawn();
             int indexPoint = GetIndexSpawnPoint();

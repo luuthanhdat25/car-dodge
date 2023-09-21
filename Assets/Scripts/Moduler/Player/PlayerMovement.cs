@@ -6,13 +6,13 @@ namespace Moduler.Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovement : RepeatMonoBehaviour
     {
-        [SerializeField] private float moveSpeed = 6f;
         [SerializeField] private new Rigidbody2D rigidbody2D;
         
         private const float DISTANCE_MOVE = 1.43f;
         private const float X_COORDINATE_MOVE_MIN = -2.145f;
         private const float X_COORDINATE_MOVE_MAX = 2.145f;
         
+        private float moveSpeed;
         private bool isMoving = false;
         private Vector3 targetPosition;
         
@@ -25,7 +25,11 @@ namespace Moduler.Player
 
         private void Start() => this.rigidbody2D.gravityScale = 0;
 
-        private void LateUpdate() => Move();
+        private void LateUpdate()
+        {
+            if (GameManager.Instance.IsGameOver()) return;
+            Move();
+        }
 
         private void Move()
         {
@@ -56,10 +60,12 @@ namespace Moduler.Player
         {
             Vector3 currentPosition = transform.position;
             Vector3 moveDirection = (targetPosition - currentPosition).normalized;
+            moveSpeed = GameManager.Instance.GetPlayerMoveSpeed();
             Vector3 velocity = moveDirection * moveSpeed;
+            
             rigidbody2D.velocity = velocity;
 
-            if (Vector3.Distance(currentPosition, targetPosition) <= 0.1f)
+            if (Vector3.Distance(currentPosition, targetPosition) <= 0.05f)
             {
                 transform.position = targetPosition;
                 isMoving = false;

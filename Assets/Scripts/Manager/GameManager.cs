@@ -1,6 +1,7 @@
 using RepeatUtil.DesignPattern.SingletonPattern;
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Manager
 {
@@ -21,9 +22,13 @@ namespace Manager
         private State state;
         private float waitingToStartTimer = 1f;
         private float countdownToStartTimer = 3f;
+        //private float timePlayGameCounter;
         private bool isGamePause = false;
 
-        private float vehicleSpeed = 5f;
+        [SerializeField] private float vehicleSpeed = 5f;
+        [SerializeField] private float roadScrollSpeed = 0f;
+        [SerializeField] private float spawnSpeed = 1.5f;
+        [SerializeField] private float playerMoveSpeed = 2f;
         
         private void Start()
         {
@@ -51,6 +56,7 @@ namespace Manager
             {
                 case State.WaitingToStart:
                     waitingToStartTimer -= Time.deltaTime;
+                    roadScrollSpeed -= Time.deltaTime/20;
                     if (waitingToStartTimer <= 0)
                     {
                         state = State.CountdownToStart;
@@ -60,14 +66,18 @@ namespace Manager
                 
                 case State.CountdownToStart:
                     countdownToStartTimer -= Time.deltaTime;
+                    roadScrollSpeed -= Time.deltaTime/50;
                     if (countdownToStartTimer <= 0)
                     {
                         state = State.GamePlaying;
                         OnStateChanged?.Invoke(this, EventArgs.Empty);
                     }
                     break;
-                
                 case State.GamePlaying:
+                    vehicleSpeed += Time.deltaTime/90;
+                    roadScrollSpeed -= Time.deltaTime/150;
+                    spawnSpeed -= Time.deltaTime/100;
+                    playerMoveSpeed += Time.deltaTime/400;
                     break;
                 case State.GameOver:
                     break;
@@ -83,5 +93,11 @@ namespace Manager
         public float GetCountdownToStartTimer() => countdownToStartTimer;
         
         public float GetVehicleSpeed() => vehicleSpeed;
+        
+        public float GetRoadScrollSpeed() => roadScrollSpeed;
+        
+        public float GetSpawnSpeed() => spawnSpeed;
+        
+        public float GetPlayerMoveSpeed() => playerMoveSpeed;
     }
 }

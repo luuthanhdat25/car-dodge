@@ -24,7 +24,7 @@ public class RepeatMonoBehaviour : MonoBehaviour
     {
         // For override
     }
-    
+
     protected T FindComponentInParent<T>() where T : Component
     {
         Transform parent = transform.parent;
