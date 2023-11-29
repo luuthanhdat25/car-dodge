@@ -27,7 +27,11 @@ namespace Moduler.Player
 
         private void LateUpdate()
         {
-            if (GameManager.Instance.IsGameOver()) return;
+            if (GameManager.Instance.IsGameOver())
+            {
+                rigidbody2D.velocity = Vector2.zero;
+                return;
+            }
             Move();
         }
 

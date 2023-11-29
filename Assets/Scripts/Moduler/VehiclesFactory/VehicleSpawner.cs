@@ -1,7 +1,9 @@
+using RepeatUtil.DesignPattern.SingletonPattern;
+using Moduler.VehiclesFactory.Vehicle;
+using Moduler.VehiclesFactory;
+
 using System.Collections.Generic;
 using Manager;
-using Moduler.VehiclesFactory;
-using RepeatUtil.DesignPattern.SingletonPattern;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -36,7 +38,7 @@ namespace Moduler
             
             //Create despawn abstract(DespawnByDistanse and DespawnByDistanse Dead) and get abstractVehicle
             newVehicle.GetComponent<DespawnByDistanse>().SetIndexSpawnPoint(indexPoint);
-            newVehicle.GetComponent<IVehicleProduct>().SetSpeed(GameManager.Instance.GetVehicleSpeed());
+            newVehicle.GetComponent<AbstractVehicle>().SetSpeed(GameManager.Instance.GetVehicleSpeed());
             
             newVehicle.transform.position = spawnPointList[indexPoint].position;
             spawnPointArrayCount[indexPoint]++;
@@ -63,15 +65,9 @@ namespace Moduler
                 minimumIndex = previusIndex;
                 switch (minimumIndex + previusIndex)
                 {
-                    case 1:
-                        previusIndex = 3;
-                        break;
-                    case 3:
-                        previusIndex = 3;
-                        break;
-                    case 5:
-                        previusIndex = 0;
-                        break;
+                    case 1: previusIndex = 3; break;
+                    case 3: previusIndex = 3; break;
+                    case 5: previusIndex = 0; break;
                 }
             }
             

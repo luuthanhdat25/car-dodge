@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Moduler.VehiclesFactory
 {
-    public class GreenCar : AbstractVehicle, IVehicleProduct
+    public class GreenCar : AbstractVehicle
     {
-        public void SetSpeed(float speed) => this.vehicleMovement.SetSpeedMove(speed);
+        
     }
 }

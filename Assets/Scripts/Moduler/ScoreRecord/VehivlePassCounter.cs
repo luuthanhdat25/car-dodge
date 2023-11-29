@@ -1,19 +1,13 @@
-using System;
 using Manager;
-using RepeatUtil.DesignPattern.SingletonPattern;
 using UnityEngine;
 
 namespace Moduler
 {
-    public class ScoreCounter : Singleton<ScoreCounter>
+    public class VehivlePassCounter : MonoBehaviour
     {
-        public event EventHandler OnVehiclePassed;
-        
         [SerializeField] private LayerMask layerMask;
 
         private const float DISTANCE_RAYCAST2D = 5f;
-        
-        private int score;
         
         private void Update()
         {
@@ -29,8 +23,7 @@ namespace Moduler
             foreach (RaycastHit2D raycastHit in hits)
                 raycastHit.collider.enabled = false;
 
-            score += hits.Length;
-            OnVehiclePassed?.Invoke(this, EventArgs.Empty);
+            ScoreManager.Instance.IncreaseScore(hits.Length);
         }
 
         private void OnDrawGizmos()
@@ -40,7 +33,5 @@ namespace Moduler
             secondPoint.x += DISTANCE_RAYCAST2D;
             Gizmos.DrawLine(transform.position, secondPoint);
         }
-
-        public int GetScore() => this.score;
     }
 }

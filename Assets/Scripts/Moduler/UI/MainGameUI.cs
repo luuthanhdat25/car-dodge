@@ -8,13 +8,8 @@ namespace Moduler.UI
     {
         [SerializeField] private TextMeshProUGUI scoreText;
 
-        private void Start() => ScoreCounter.Instance.OnVehiclePassed += ScoreCounter_OnVehiclePassed;
+        private void Start() => ScoreManager.Instance.OnScoreChanged += ScoreManager_OnScoreChange;
 
-        private void ScoreCounter_OnVehiclePassed(object sender, EventArgs e) => UpdateScore();
-
-        private void UpdateScore()
-        {
-            scoreText.text = "Score: " + ScoreCounter.Instance.GetScore().ToString();
-        }
+        private void ScoreManager_OnScoreChange(int i) => scoreText.text = "Score: " + i;
     }
 }

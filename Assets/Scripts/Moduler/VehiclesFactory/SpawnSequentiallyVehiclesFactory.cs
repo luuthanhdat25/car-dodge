@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Moduler.VehiclesFactory.Vehicle;
 using UnityEngine;
 
 namespace Moduler.VehiclesFactory
@@ -9,20 +10,20 @@ namespace Moduler.VehiclesFactory
 
         public override Transform Spawn()
         {
-            IVehicleProduct newVehicleProduct = GetVehicle();
+            AbstractVehicle newVehicleProduct = GetVehicle();
             if(newVehicleProduct == null) Debug.LogError("newVehicle dose not exist");
             Transform trans = VehicleObjectPooling.Instance.GetTransform(newVehicleProduct);
             return trans;
         }
 
-        protected override IVehicleProduct GetVehicle()
+        protected override AbstractVehicle GetVehicle()
         {
-            IVehicleProduct newVehicleProduct = null;
+            AbstractVehicle newVehicleProduct = null;
             List<Transform> vehicleTransformList = VehicleObjectPooling.Instance.GetPrefabList();
             if (index < vehicleTransformList.Count) {
-                newVehicleProduct = vehicleTransformList[index].GetComponent<IVehicleProduct>();
+                newVehicleProduct = vehicleTransformList[index].GetComponent<AbstractVehicle>();
             }else {
-                newVehicleProduct = vehicleTransformList[0].GetComponent<IVehicleProduct>();
+                newVehicleProduct = vehicleTransformList[0].GetComponent<AbstractVehicle>();
                 index = 0;
             }
             index++;

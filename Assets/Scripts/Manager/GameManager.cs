@@ -1,16 +1,15 @@
 using RepeatUtil.DesignPattern.SingletonPattern;
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Manager
 {
     public class GameManager : Singleton<GameManager>
     {
-        public event EventHandler OnStateChanged;
         public event EventHandler OnGamePaused;
         public event EventHandler OnGameUnpaused;
-        
+        public event EventHandler OnGameOver; 
+
         private enum State
         {
             WaitingToStart,
@@ -52,36 +51,41 @@ namespace Manager
     
         private void Update()
         {
-            switch (state)
-            {
+            float deltaTime = Time.deltaTime;
+            switch (state) {
                 case State.WaitingToStart:
-                    waitingToStartTimer -= Time.deltaTime;
-                    roadScrollSpeed -= Time.deltaTime/20;
+                    waitingToStartTimer -= deltaTime;
+                    roadScrollSpeed -= deltaTime/20;
                     if (waitingToStartTimer <= 0)
                     {
                         state = State.CountdownToStart;
-                        OnStateChanged?.Invoke(this, EventArgs.Empty);
                     }
                     break;
                 
                 case State.CountdownToStart:
-                    countdownToStartTimer -= Time.deltaTime;
-                    roadScrollSpeed -= Time.deltaTime/50;
+                    countdownToStartTimer -= deltaTime;
+                    roadScrollSpeed -=deltaTime/50;
                     if (countdownToStartTimer <= 0)
                     {
                         state = State.GamePlaying;
-                        OnStateChanged?.Invoke(this, EventArgs.Empty);
                     }
                     break;
                 case State.GamePlaying:
-                    vehicleSpeed += Time.deltaTime/90;
-                    roadScrollSpeed -= Time.deltaTime/150;
-                    spawnSpeed -= Time.deltaTime/100;
-                    playerMoveSpeed += Time.deltaTime/400;
+                    vehicleSpeed += deltaTime/20;
+                    if(roadScrollSpeed > -0.5f) roadScrollSpeed -= deltaTime/150;
+                    if(spawnSpeed > 0.3f) spawnSpeed -= deltaTime/60;
+                    playerMoveSpeed += deltaTime/30;
                     break;
                 case State.GameOver:
+                    Debug.Log("Game Over");
                     break;
             }
+        }
+
+        public void GameOver()
+        {
+            state = State.GameOver;
+            OnGameOver?.Invoke(this, EventArgs.Empty);
         }
 
         public bool IsGamePlaying() => state == State.GamePlaying;

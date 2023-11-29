@@ -1,11 +1,10 @@
-using System;
-using Moduler.VehiclesFactory;
+using Moduler.VehiclesFactory.Vehicle;
 using RepeatUtil.DesignPattern.ObjectPooling;
 using UnityEngine;
 
 namespace Moduler
 {
-    public class VehicleObjectPooling : ListObjectPooling<IVehicleProduct>
+    public class VehicleObjectPooling : ListObjectPooling<AbstractVehicle>
     {
         public static VehicleObjectPooling Instance { get; private set; }
 

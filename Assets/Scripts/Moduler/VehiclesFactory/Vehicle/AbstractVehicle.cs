@@ -31,5 +31,7 @@ namespace Moduler.VehiclesFactory.Vehicle
             if (this.collider2D != null) return;
             this.collider2D = GetComponent<Collider2D>();
         }
+        
+        public void SetSpeed(float speed) => this.vehicleMovement.SetSpeedMove(speed);
     }
 }
